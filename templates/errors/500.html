@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% set now =  'now' %}
+
+{% block title %}500 - Kesalahan Internal Server{% endblock %}
+
+{% block content %}
+<section class="uk-section uk-section-default uk-text-center uk-flex uk-flex-middle uk-flex-center" uk-height-viewport="offset-top: true">
+    <div class="uk-card uk-card-default uk-card-body uk-width-large uk-box-shadow-large uk-border-rounded animate-fade-in">
+        <h1 class="uk-heading-hero uk-text-danger uk-margin-remove-top">500</h1>
+        <p class="uk-text-lead">Terjadi kesalahan di server kami.</p>
+        <p class="uk-text-meta uk-margin-bottom">Kami sedang berupaya memperbaikinya. Mohon coba lagi nanti.</p>
+        <a href="{{ url_for('index') }}" class="uk-button uk-button-primary uk-button-large scale-up">Kembali ke Beranda</a>
+    </div>
+</section>
+{% endblock %}

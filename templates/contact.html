@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% set now =  'now' %}
+
+{% block title %}Kontak - Portofolio Eka Saputra{% endblock %}
+
+{% block content %}
+<section class="uk-section animate-fade-in">
+    <div class="uk-container uk-card uk-card-default uk-card-body uk-width-1-1@m uk-border-rounded" style="padding: 1rem 1rem;">
+        <h1 class="uk-heading-medium uk-text-center uk-margin-large-bottom">Hubungi Saya</h1>
+        <p class="uk-text-center uk-text-lead uk-margin-medium-bottom">Jangan ragu untuk menghubungi saya jika Anda memiliki pertanyaan, ingin berkolaborasi, atau sekadar ingin menyapa.</p>
+
+        <div class="uk-grid-large uk-grid-margin-large-top" uk-grid>
+            <div class="uk-width-1-2@m animate-slide-in-left">
+                <h3 class="uk-h4 uk-margin-bottom"><span class="fas fa-info-circle uk-margin-small-right uk-text-primary"></span> Informasi Kontak</h3>
+                <ul class="uk-list uk-list-large uk-list-divider">
+                    <li><span class="fas fa-envelope uk-margin-small-right uk-text-muted"></span>Email: <a href="mailto:emailanda@example.com" class="uk-link-text">komikers09@gmail.com</a></li>
+                    <li><span class="fab fa-linkedin uk-margin-small-right uk-text-muted"></span>LinkedIn: <a href="https://www.linkedin.com/in/ishikawa-uta" target="_blank" class="uk-link-text">Ishikawa Uta</a></li>
+                    <li><span class="fab fa-github uk-margin-small-right uk-text-muted"></span>GitHub: <a href="https://github.com/IshikawaUta" target="_blank" class="uk-link-text">IshikawaUta</a></li>
+                    <li><span class="fas fa-phone-alt uk-margin-small-right uk-text-muted"></span>Telepon: +62895701060973</li>
+                    <li><span class="fas fa-map-marker-alt uk-margin-small-right uk-text-muted"></span>Lokasi: Tangerang, Banten, Indonesia</li>
+                </ul>
+            </div>
+            <div class="uk-width-1-2@m animate-slide-in-right">
+                <h3 class="uk-h4 uk-margin-bottom"><span class="fas fa-comments uk-margin-small-right uk-text-primary"></span> Kirim Pesan</h3>
+                <form action="{{ url_for('contact') }}" method="POST" class="uk-form-stacked">
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-stacked-name">Nama Lengkap</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="form-stacked-name" type="text" name="name" placeholder="Nama Anda" required>
+                        </div>
+                    </div>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-stacked-email">Alamat Email</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="form-stacked-email" type="email" name="email" placeholder="Email Anda" required>
+                        </div>
+                    </div>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-stacked-subject">Subjek</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="form-stacked-subject" type="text" name="subject" placeholder="Subjek Pesan" required>
+                        </div>
+                    </div>
+                    <div class="uk-margin">
+                        <label class="uk-form-label" for="form-stacked-message">Pesan Anda</label>
+                        <div class="uk-form-controls">
+                            <textarea class="uk-textarea" id="form-stacked-message" name="message" rows="6" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                        </div>
+                    </div>
+                    <div class="uk-margin uk-text-right">
+                        <button class="uk-button uk-button-primary scale-up" type="submit"><span class="fas fa-paper-plane uk-margin-small-right"></span>Kirim Pesan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

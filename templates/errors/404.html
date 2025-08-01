@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% set now =  'now' %}
+
+{% block title %}404 - Halaman Tidak Ditemukan{% endblock %}
+
+{% block content %}
+<section class="uk-section uk-text-center uk-flex uk-flex-middle uk-flex-center" style="margin-bottom: 3rem;" uk-height-viewport="offset-top: true">
+    <div class="uk-card uk-card-default uk-card-body uk-width-large uk-box-shadow-large uk-border-rounded animate-fade-in">
+        <h1 class="uk-heading-hero uk-text-danger uk-margin-remove-top">404</h1>
+        <p class="uk-text-lead">Halaman yang Anda cari tidak dapat ditemukan.</p>
+        <p class="uk-text-meta uk-margin-bottom">Mungkin URL-nya salah ketik atau halaman telah dihapus.</p>
+        <a href="{{ url_for('index') }}" class="uk-button uk-button-primary uk-button-large scale-up">Kembali ke Beranda</a>
+    </div>
+</section>
+{% endblock %}

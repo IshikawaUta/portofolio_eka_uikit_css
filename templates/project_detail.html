@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% set now =  'now' %}
+
+{# === SEO & Open Graph Tags === #}
+{% block title %}{{ project.title }} - Proyek Saya{% endblock %}
+{% block meta_description %}{{ project.description | truncate(160, true, '...') }}{% endblock %}
+
+{% block og_title %}{{ project.title }}{% endblock %}
+{% block og_description %}{{ project.description | truncate(160, true, '...') }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_image %}{{ project.image_url if project.image_url else url_for('static', filename='img/default-project-image.jpg', _external=True) }}{% endblock %}
+
+{# === Structured Data (Schema.org) === #}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "{{ project.title }}",
+  "description": "{{ project.description | replace('\n', ' ') | replace('"', '\\"') }}",
+  "url": "{{ url_for('project_detail', project_id=project._id, _external=True) }}",
+  "image": "{{ project.image_url if project.image_url else url_for('static', filename='img/default-project-image.jpg', _external=True) }}",
+  "keywords": "{{ ', '.join(project.technologies) }}",
+  {% if project.created_at %}
+  "datePublished": "{{ project.created_at.strftime('%Y-%m-%d') }}",
+  {% endif %}
+  "author": {
+    "@type": "Person",
+    "name": "Eka Saputra"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Portofolio Eka Saputra"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ url_for('project_detail', project_id=project._id, _external=True) }}"
+  }
+  {% if project.github_url %},
+  "codeRepository": "{{ project.github_url }}"
+  {% endif %}
+  {% if project.project_url %},
+  "url": "{{ project.project_url }}"
+  {% endif %}
+}
+</script>
+{% endblock %}
+
+{# === Isi Halaman Proyek === #}
+{% block content %}
+<section class="uk-section uk-section-default animate-fade-in" style="margin-bottom: 3rem;">
+    <div class="uk-container">
+        {% if project %}
+        <article class="uk-article">
+            {# Header Proyek #}
+            <h1 class="uk-article-title uk-text-center">{{ project.title }}</h1>
+            <p class="uk-text-lead uk-text-center uk-margin-small-top">{{ project.description }}</p>
+
+            {# Galeri Gambar Proyek (jika ada) #}
+            {% if project.get('gallery_images') %}
+            <div class="uk-position-relative uk-visible-toggle uk-light uk-margin-large-top" tabindex="-1" uk-slider>
+                <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
+                    {% for image in project.gallery_images %}
+                    <li>
+                        <div class="uk-panel">
+                            <img src="{{ image }}" alt="Gambar Proyek {{ project.title }}" class="uk-border-rounded">
+                            <div class="uk-position-center uk-panel"></div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            </div>
+            {% else %}
+            <div class="uk-margin-large-top">
+                <img src="{{ project.image_url if project.image_url else url_for('static', filename='img/default-project-image.jpg') }}" 
+                     alt="Gambar Utama Proyek {{ project.title }}" 
+                     class="uk-width-1-1 uk-border-rounded">
+            </div>
+            {% endif %}
+
+            <hr class="uk-divider-small">
+
+            {# Detail Proyek #}
+            <div class="uk-grid-small uk-child-width-1-2@s uk-flex-center uk-margin-medium-top" uk-grid style="padding-left: 1rem;">
+                <div>
+                    <h3 class="uk-h4"><span class="fas fa-tools uk-text-primary uk-margin-small-right"></span>Teknologi</h3>
+                    <ul class="uk-list uk-list-disc">
+                        {% for tech in project.technologies %}
+                        <li>{{ tech }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="uk-h4"><span class="fas fa-link uk-text-primary uk-margin-small-right"></span>Tautan</h3>
+                    <ul class="uk-list">
+                        {% if project.project_url %}
+                        <li><a href="{{ project.project_url }}" target="_blank" class="uk-link-text"><span class="fas fa-globe uk-margin-small-right"></span>Lihat Proyek Langsung</a></li>
+                        {% endif %}
+                        {% if project.github_url %}
+                        <li><a href="{{ project.github_url }}" target="_blank" class="uk-link-text"><span class="fab fa-github uk-margin-small-right"></span>Kode Sumber di GitHub</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="uk-divider-small">
+
+            {# Deskripsi Proyek Panjang #}
+            <div class="uk-margin-large-top" style="padding-left: 1rem;">
+                <h3 class="uk-h4"><span class="fas fa-align-left uk-text-primary uk-margin-small-right"></span>Detail Proyek</h3>
+                <p>{{ project.long_description|default(project.description) | nl2br }}</p>
+                {# Asumsi Anda punya field long_description di model MongoDB, jika tidak, gunakan description #}
+            </div>
+
+            {# Tombol Kembali #}
+            <div class="uk-margin-large-top uk-text-center">
+                <a href="{{ url_for('projects') }}" class="uk-button uk-button-default uk-button-large scale-up"><span class="fas fa-arrow-left uk-margin-small-right"></span>Kembali ke Daftar Proyek</a>
+            </div>
+        </article>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

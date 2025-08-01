@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Main Title Block #}
+    <title>{% block title %}Portofolio Eka Saputra | Full-stack Developer | Jasa Pembuatan Website{% endblock %}</title>
+
+    {# Dynamic Meta Description for SEO #}
+    <meta name="description" content="{% block meta_description %}Portofolio pribadi Eka Saputra, seorang Full-stack Developer yang bersemangat menciptakan solusi digital inovatif. Lihat proyek, keahlian, dan hubungi saya.{% endblock %}">
+
+    {# Open Graph Tags for Social Media Sharing #}
+    <meta property="og:title" content="{% block og_title %}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{% endblock %}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{{ request.url }}">
+    {# OG Image Block (defined here once) #}
+    <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='img/default-share-image.jpg', _external=True) }}{% endblock %}">
+    <meta property="og:site_name" content="Portofolio Eka Saputra">
+
+    {# Twitter Card Tags #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{% endblock %}">
+    {# Twitter Image Block - reference og_image using `self` or leave empty #}
+    <meta name="twitter:image" content="{% block twitter_image %}{% if self.og_image() %}{{ self.og_image() }}{% else %}{{ url_for('static', filename='img/default-share-image.jpg', _external=True) }}{% endif %}{% endblock %}">
+    <meta name="twitter:creator" content="@Komik_ers09">
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png', _external=True) }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.5/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.5/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.5/dist/js/uikit-icons.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    {# Structured Data - Schema.org - application/ld+json #}
+    {% block structured_data %}{% endblock %}
+</head>
+<body>
+    <div class="uk-offcanvas-content">
+        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar="mode: click">
+            <div class="uk-container">
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo" href="{{ url_for('index') }}">
+                        <span uk-icon="icon: code; ratio: 1.5" class="uk-margin-small-right"></span>Portofolio
+                    </a>
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        <li {% if request.endpoint == 'index' %}class="uk-active"{% endif %}><a href="{{ url_for('index') }}"><span uk-icon="icon: home" class="uk-margin-small-right"></span>Beranda</a></li>
+                        <li {% if request.endpoint == 'about' %}class="uk-active"{% endif %}><a href="{{ url_for('about') }}"><span uk-icon="icon: user" class="uk-margin-small-right"></span>Tentang Saya</a></li>
+                        <li {% if request.endpoint == 'projects' %}class="uk-active"{% endif %}><a href="{{ url_for('projects') }}"><span uk-icon="icon: folder" class="uk-margin-small-right"></span>Proyek</a></li>
+                        <li {% if request.endpoint == 'tools' %}class="uk-active"{% endif %}><a href="{{ url_for('tools') }}"><span uk-icon="icon: desktop" class="uk-margin-small-right"></span>Alat & Teknologi</a></li>
+                        <li {% if request.endpoint == 'contact' %}class="uk-active"{% endif %}><a href="{{ url_for('contact') }}"><span uk-icon="icon: mail" class="uk-margin-small-right"></span>Kontak</a></li>
+                        {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('admin_projects') }}"><span uk-icon="icon: settings" class="uk-margin-small-right"></span>Admin</a></li>
+                        <li><a href="{{ url_for('admin_logout') }}"><span uk-icon="icon: sign-out" class="uk-margin-small-right"></span>Logout</a></li>
+                        {% else %}
+                        <li><a href="{{ url_for('admin_login') }}"><span uk-icon="icon: sign-in" class="uk-margin-small-right"></span>Login</a></li>
+                        {% endif %}
+                    </ul>
+                    <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas-nav" uk-toggle><span uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span></a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="uk-container uk-margin-medium-top">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="uk-alert-{{ category }}" uk-alert>
+                            <a class="uk-alert-close" uk-close></a>
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </div>
+
+        <div id="offcanvas-nav" uk-offcanvas="mode: push; overlay: true">
+            <div class="uk-offcanvas-bar">
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <ul class="uk-nav uk-nav-default">
+                    <li class="uk-nav-header">Menu</li>
+                    <li {% if request.endpoint == 'index' %}class="uk-active"{% endif %}><a href="{{ url_for('index') }}"><span uk-icon="icon: home" class="uk-margin-small-right"></span>Beranda</a></li>
+                    <li {% if request.endpoint == 'about' %}class="uk-active"{% endif %}><a href="{{ url_for('about') }}"><span uk-icon="icon: user" class="uk-margin-small-right"></span>Tentang Saya</a></li>
+                    <li {% if request.endpoint == 'projects' %}class="uk-active"{% endif %}><a href="{{ url_for('projects') }}"><span uk-icon="icon: folder" class="uk-margin-small-right"></span>Proyek</a></li>
+                    <li {% if request.endpoint == 'tools' %}class="uk-active"{% endif %}><a href="{{ url_for('tools') }}"><span uk-icon="icon: desktop" class="uk-margin-small-right"></span>Alat & Teknologi</a></li>
+                    <li {% if request.endpoint == 'contact' %}class="uk-active"{% endif %}><a href="{{ url_for('contact') }}"><span uk-icon="icon: mail" class="uk-margin-small-right"></span>Kontak</a></li>
+                    {% if current_user.is_authenticated %}
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="{{ url_for('admin_projects') }}"><span uk-icon="icon: settings" class="uk-margin-small-right"></span>Admin</a></li>
+                    <li><a href="{{ url_for('admin_logout') }}"><span uk-icon="icon: sign-out" class="uk-margin-small-right"></span>Logout</a></li>
+                    {% else %}
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="{{ url_for('admin_login') }}"><span uk-icon="icon: sign-in" class="uk-margin-small-right"></span>Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <footer class="uk-section uk-section-secondary uk-text-center">
+            <div class="uk-container">
+                <div class="uk-margin-medium">
+                    <ul class="uk-subnav uk-flex-center">
+                        <li><a href="https://x.com/Komik_ers09" target="_blank" uk-icon="twitter"></a></li>
+                        <li><a href="https://www.facebook.com/ekasaputra.saputra.127" target="_blank" uk-icon="facebook"></a></li>
+                        <li><a href="https://www.linkedin.com/in/ishikawa-uta" target="_blank" uk-icon="linkedin"></a></li>
+                        <li><a href="https://github.com/IshikawaUta" target="_blank" uk-icon="github"></a></li>
+                        <li><a href="mailto:komikers09@gmail.com" uk-icon="mail"></a></li>
+                    </ul>
+                </div>
+                <p>&copy; {{ now.year }} Eka Saputra. Hak Cipta Dilindungi.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

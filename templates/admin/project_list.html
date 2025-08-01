@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% set now =  'now' %}
+
+{% block title %}Manajemen Proyek - Admin{% endblock %}
+
+{% block content %}
+<section class="uk-section animate-fade-in">
+    <div class="uk-container">
+        <h1 class="uk-heading-medium uk-margin-large-bottom">Manajemen Proyek</h1>
+        <a href="{{ url_for('add_project') }}" class="uk-button uk-button-primary uk-margin-bottom scale-up"><span class="fas fa-plus uk-margin-small-right"></span>Tambah Proyek Baru</a>
+
+        {% if projects %}
+        <div class="uk-overflow-auto uk-box-shadow-small uk-border-rounded">
+            <table class="uk-table uk-table-hover uk-table-striped uk-table-small uk-table-middle">
+                <thead>
+                    <tr>
+                        <th class="uk-text-nowrap">Gambar</th>
+                        <th>Judul</th>
+                        <th>Deskripsi</th>
+                        <th>Teknologi</th>
+                        <th class="uk-text-nowrap">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                    <tr class="animate-fade-in uk-animation-slide-bottom-small">
+                        <td>
+                            {% if project.image_url %}
+                            <img src="{{ project.image_url }}" alt="{{ project.title }}" width="80" class="uk-border-rounded">
+                            {% else %}
+                            <span uk-icon="icon: image; ratio: 1.5" class="uk-text-muted"></span>
+                            {% endif %}
+                        </td>
+                        <td class="uk-text-nowrap">{{ project.title }}</td>
+                        <td>{{ project.description | truncate(100, true) }}</td>
+                        <td>
+                            {% for tech in project.technologies %}
+                            <span class="uk-label uk-label-success uk-margin-small-right uk-margin-small-bottom">{{ tech }}</span>
+                            {% endfor %}
+                        </td>
+                        <td class="uk-text-nowrap">
+                            <a href="{{ url_for('edit_project', project_id=project._id) }}" class="uk-button uk-button-text uk-text-primary uk-margin-small-right"><span class="fas fa-edit uk-margin-small-right"></span>Edit</a>
+                            <form action="{{ url_for('delete_project', project_id=project._id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus proyek ini?');">
+                                <button type="submit" class="uk-button uk-button-danger uk-button-small"><span class="fas fa-trash-alt uk-margin-small-right"></span>Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="uk-alert-warning" uk-alert>
+            <p><span class="fas fa-info-circle uk-margin-small-right"></span>Belum ada proyek yang ditambahkan. Silakan <a href="{{ url_for('add_project') }}">tambahkan yang pertama</a>.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

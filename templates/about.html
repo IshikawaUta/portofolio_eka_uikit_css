@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% set now =  'now' %}
+
+{% block title %}Tentang Saya - Portofolio Eka Saputra{% endblock %}
+
+{% block meta_description %}Pelajari lebih lanjut tentang Eka Saputra, latar belakang pendidikan, pengalaman, dan keahlian di bidang pengembangan web dan desain.{% endblock %}
+
+{% block og_title %}Tentang Saya - Eka Saputra{% endblock %}
+{% block og_description %}Detail profil dan perjalanan karir Eka Saputra sebagai Full-Stack Developer.{% endblock %}
+{% block og_type %}profile{% endblock %}
+{% block og_image %}{{ url_for('static', filename='img/foto-profil-seo.jpg', _external=True) }}{% endblock %}
+
+{% block content %}
+<section class="uk-section uk-section-default animate-fade-in" style="padding: 1rem 1rem; margin-bottom: 2.5rem;">
+    <div class="uk-container">
+        <div class="uk-grid-large uk-grid-margin-large-top" uk-grid>
+            <div class="uk-width-1-3@m uk-text-center animate-slide-in-left">
+                <img src="{{ url_for('static', filename='img/foto-profil-seo.jpg', _external=True) }}" alt="Foto Profil Anda" class="uk-border-circle uk-box-shadow-medium" width="250" height="250">
+                <h3 class="uk-h3 uk-margin-top">Eka Saputra</h3>
+                <p class="uk-text-meta">full-stack developer</p>
+                <div class="uk-margin">
+                    <ul class="uk-iconnav uk-flex-center">
+                        <li><a href="https://x.com/Komik_ers09" target="_blank" uk-icon="twitter"></a></li>
+                        <li><a href="https://www.linkedin.com/in/ishikawa-uta" target="_blank" uk-icon="linkedin"></a></li>
+                        <li><a href="https://github.com/IshikawaUta" target="_blank" uk-icon="github"></a></li>
+                        <li><a href="mailto:komikers09@gmail.com" uk-icon="mail"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="uk-width-2-3@m animate-slide-in-right">
+                <h1 class="uk-heading-medium">Tentang Saya</h1>
+                <p class="uk-text-justify uk-text-lead" style="font-size: 1rem;">
+                    Halo, saya Eka Saputra. Saya adalah seorang <strong style="font-weight: bold;">full-stack developer</strong> dan Mahasiswa dari kampus <strong style="font-weight: bold;">Areta Informatics College</strong>.
+                    Dengan latar belakang pendidikan yang kuat dan pengalaman sebagai <strong style="font-weight: bold;">freelancer</strong>, saya telah mengasah keterampilan dalam seluruh siklus pengembangan produk digital. Saya terbiasa membangun aplikasi web dari nol, mulai dari merancang database hingga membangun antarmuka pengguna yang interaktif.
+                    Saya memiliki passion yang besar terhadap dunia pemrograman dan selalu bersemangat untuk mempelajari teknologi baru. Bagi saya, setiap baris kode adalah kesempatan untuk menciptakan solusi efektif dan inovatif.
+                </p>
+                <p class="uk-text-justify">
+                    Saya memiliki pengalaman dalam pengembangan aplikasi web full-stack, desain antarmuka pengguna yang berpusat pada pengguna, atau manajemen database yang efisien. Saya selalu tertarik untuk mempelajari teknologi baru dan menerapkan praktik terbaik untuk menghasilkan produk yang berkualitas tinggi.
+                </p>
+
+                <h2 class="uk-h3 uk-margin-top">Keahlian Utama</h2>
+                <div class="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
+                    <div><span class="uk-label uk-label-success"><i class="fab fa-python uk-margin-small-right"></i>Python (Flask)</span></div>
+                    <div><span class="uk-label uk-label-success"><i class="fab fa-js uk-margin-small-right"></i>JavaScript</span></div>
+                    <div><span class="uk-label uk-label-success"><i class="fab fa-html5 uk-margin-small-right"></i>HTML & CSS</span></div>
+                    <div><span class="uk-label uk-label-success"><i class="fas fa-database uk-margin-small-right"></i>MongoDB</span></div>
+                    <div><span class="uk-label uk-label-success"><i class="fas fa-cloud uk-margin-small-right"></i>Cloudinary</span></div>
+                    <div><span class="uk-label uk-label-success"><i class="fas fa-paint-brush uk-margin-small-right"></i>UI/UX Design</span></div>
+                </div>
+
+                <h2 class="uk-h3 uk-margin-top">Pendidikan & Pengalaman</h2>
+                <ul class="uk-list uk-list-large uk-list-divider">
+                    <li>
+                        <h4 class="uk-h4 uk-margin-remove-bottom">Areta Informatics College</h4>
+                        <p class="uk-text-meta uk-margin-remove-top">Sarjana Komputer | 2025 - Sekarang</p>
+                        <p>Deskripsi singkat tentang studi Anda dan pencapaian relevan.</p>
+                    </li>
+                    <li>
+                        <h4 class="uk-h4 uk-margin-remove-bottom">Eksa Shop</h4>
+                        <p class="uk-text-meta uk-margin-remove-top">full-stack developer | 2025 - Sekarang</p>
+                        <p>Saat bertanggung jawab sebagai freelancer full-stack developer.</p>
+                    </li>
+                    {# Tambahkan lebih banyak item pendidikan/pengalaman jika perlu #}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
