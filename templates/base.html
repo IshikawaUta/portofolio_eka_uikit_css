@@ -15,7 +15,7 @@
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:url" content="{{ request.url }}">
     {# OG Image Block (defined here once) #}
-    <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='img/default-share-image.jpg', _external=True) }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://res.cloudinary.com/dzsqaauqn/image/upload/v1754725919/eka_logo_gemini_cvikyu.jpg{% endblock %}">
     <meta property="og:site_name" content="Portofolio Eka Saputra">
 
     {# Twitter Card Tags #}
@@ -23,7 +23,7 @@
     <meta name="twitter:title" content="{% block twitter_title %}{% endblock %}">
     <meta name="twitter:description" content="{% block twitter_description %}{% endblock %}">
     {# Twitter Image Block - reference og_image using `self` or leave empty #}
-    <meta name="twitter:image" content="{% block twitter_image %}{% if self.og_image() %}{{ self.og_image() }}{% else %}{{ url_for('static', filename='img/default-share-image.jpg', _external=True) }}{% endif %}{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{% if self.og_image() %}{{ self.og_image() }}{% else %}https://res.cloudinary.com/dzsqaauqn/image/upload/v1754725919/eka_logo_gemini_cvikyu.jpg{% endif %}{% endblock %}">
     <meta name="twitter:creator" content="@Komik_ers09">
 
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png', _external=True) }}">
